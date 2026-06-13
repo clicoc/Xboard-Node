@@ -6,7 +6,7 @@ on:
     tags: ["v*"]
   pull_request:
     branches: [main, master]
-  workflow_dispatch: # 允许在 GitHub 页面上手动点击按钮触发构建
+  workflow_dispatch: # 允许在 GitHub 页面上手动点击按钮 触发构建
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
