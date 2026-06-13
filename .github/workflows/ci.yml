@@ -6,7 +6,7 @@ on:
     tags: ["v*"]
   pull_request:
     branches: [main, master]
-  workflow_dispatch:
+  workflow_dispatch: # 允许在 GitHub 页面上手动点击按钮触发构建
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -98,11 +98,11 @@ jobs:
           context: .
           push: true
           platforms: linux/amd64,linux/arm64
-          # 这里使用了 github.repository 动态变量，它会自动变成 ghcr.io/clicoc/xboard-node
+          # 修复大写报错：这里将原先的大写仓库名强行固定为小写的 xboard-node
           tags: |
-            ghcr.io/${{ github.repository }}:latest
-            ghcr.io/${{ github.repository }}:${{ github.sha }}
-            ${{ startsWith(github.ref, 'refs/tags/') && format('ghcr.io/{0}:{1}', github.repository, github.ref_name) || '' }}
+            ghcr.io/${{ github.repository_owner }}/xboard-node:latest
+            ghcr.io/${{ github.repository_owner }}/xboard-node:${{ github.sha }}
+            ${{ startsWith(github.ref, 'refs/tags/') && format('ghcr.io/{0}/xboard-node:{1}', github.repository_owner, github.ref_name) || '' }}
 
   release:
     name: Release
